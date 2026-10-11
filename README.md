@@ -140,29 +140,25 @@ Validation: on 300 random groups an honest naive bootstrap runs alongside; 97.7 
 
 *The hourly profile is unchanged between the two summers once whole days are resampled; the night hours are where both years are uncertain.*
 
-+--------+---------------+---------------------+---------------+
 | Family | Median iid CI | Median day-block CI | Design effect |
-+--------+---------------+---------------------+---------------+
-| hub    |         8.0 s |             21.0 s  |         2.5×  |
-| hour   |         3.0 s |             17.5 s  |         7.6×  |
-| mode   |         4.5 s |             26.0 s  |         7.8×  |
-| line   |         3.0 s |             28.5 s  |        10.1×  |
-+--------+---------------+---------------------+---------------+
+|---|---|---|---|
+| hub | 8 s | 21 s | 2.5× |
+| hour | 3 s | 17.5 s | 7.6× |
+| mode | 4.5 s | 26 s | 7.8× |
+| line | 3 s | 28.5 s | 10.1× |
 
 ## Data Quality Rules
 
 Each rule was found by a number that looked wrong, not assumed in advance.
 
-┌───┬─────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ # │ Rule                                                                │ How it surfaced                                                                                                           │
-├───┼─────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ 1 │ A Swiss stop has UIC prefix 85 as a string, not by integer division │ BPUIC comes as 7 digits (station) or 9 (platform); integer division gave 19 % "Swiss" stops instead of 98 %               │
-│ 2 │ |delay| > 1 day is a broken timestamp, not a delay                 │ 8,821 arrival records, the worst at −56 years, almost all on weekends with bus replacement                               │
-│ 3 │ One canonical raw schema across format evolution                   │ the feed gained a SLOID column on 2025-10-13; 92 earlier day files had to be normalised                                   │
-│ 4 │ Product labels are normalised                                      │ Bua appeared as an eighth mode on 5,250 rows                                                                              │
-│ 5 │ Prefix 85 means in the Swiss register, not in Switzerland          │ Italian stations on the Luino line carry 85xxxxx codes                                                                    │
-│ 6 │ Line identity by route fingerprint, not by vendor name             │ 12 renames found by stop-set Jaccard ≥ 0.8; the remaining 99 % of volume drift was new real-time coverage                 │
-└───┴─────────────────────────────────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+| # | Rule | How it surfaced |
+|---|---|---|
+| 1 | A Swiss stop has UIC prefix **85 as a string**, not by integer division | BPUIC comes as 7 digits (station) or 9 (platform); integer division gave 19 % "Swiss" stops instead of 98 % |
+| 2 | \|delay\| > 1 day is a **broken timestamp**, not a delay | 8,821 arrival records, the worst at −56 years, almost all on weekends with bus replacement |
+| 3 | One **canonical raw schema** across format evolution | the feed gained a `SLOID` column on 2025-10-13; 92 earlier day files had to be normalised |
+| 4 | **Product labels** are normalised | `Bua` appeared as an eighth mode on 5,250 rows |
+| 5 | Prefix 85 means *in the Swiss register*, not *in Switzerland* | Italian stations on the Luino line carry 85xxxxx codes |
+| 6 | **Line identity by route fingerprint**, not by vendor name | 12 renames found by stop-set Jaccard ≥ 0.8; the remaining 99 % of volume drift was new real-time coverage |
 
 ## Reporting Policy
 
