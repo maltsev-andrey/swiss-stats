@@ -1,0 +1,8 @@
+# swiss-stats configuration. Copy to config/config.yaml and edit.
+gpu_uuid: GPU-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx   # nvidia-smi --query-gpu=uuid --format=csv
+expected_gpu: "P100"          # substring of the device name; the scripts refuse any other GPU
+vram_budget_gb: 6             # upper bound; the actual budget is min(this, free VRAM - 1 GB)
+data_root: /data/swiss-stats  # raw/, curated/, agg/, out/, scratch/ live here (80 GB for 15 months)
+minio_bucket: swiss-stats     # optional off-host mirror of curated/ and agg/
+report_min_n: 200             # F3.1: a p95 is reported only with n >= this (>= 10 obs above p95)
+precise_rule: "half_width <= max(60s, 20% of p95), no clip"

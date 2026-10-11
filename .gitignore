@@ -1,0 +1,12 @@
+config/config.yaml
+data/
+scratch/
+*.parquet
+*.csv
+*.zip
+*.log
+out/*.png
+__pycache__/
+*.pyc
+.venv/
+venv/

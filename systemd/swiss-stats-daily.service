@@ -1,0 +1,16 @@
+[Unit]
+Description=swiss-stats: daily Ist-Daten ingest + curated layer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=swissstats
+WorkingDirectory=/opt/swiss-stats
+ExecStart=/opt/swiss-stats/venv/bin/python -u src/ingest.py all
+ExecStart=/opt/swiss-stats/venv/bin/python -u src/build_curated.py
+MemoryMax=8G
+Nice=10
+IOSchedulingClass=idle
+StandardOutput=append:/data/swiss-stats/daily.log
+StandardError=append:/data/swiss-stats/daily.log
